@@ -8,5 +8,3 @@ playwright-report/
 
 .skillbox/
 .vercel/
-.vercel
-.env*

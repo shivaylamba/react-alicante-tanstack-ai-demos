@@ -155,6 +155,11 @@ The earlier roast, landing-page generator, launch-copy skill and confetti approv
 
 ## GitHub and Vercel
 
+- [Lightning talk and live demos](https://react-alicante-tanstack-ai-demos.vercel.app/lightning.html#welcome)
+- [Full companion deck](https://react-alicante-tanstack-ai-demos.vercel.app/#welcome)
+- [Phone-friendly speaker notes](https://react-alicante-tanstack-ai-demos.vercel.app/speaker-notes/)
+
+
 This repository contains both slide editions, the live demo server, skills, tests and the speaker guide. The hosted reading guide is also available at `/speaker-notes/`.
 
 Vercel builds the React app with Vite and routes `/api/*` to the Hono Node function in `api/index.ts`. Configure `NEBIUS_API_KEY`, `AI_GATEWAY_API_KEY`, `NEBIUS_MODEL`, `DEMO_MODE=live` as server environment variables. Never use a `VITE_` prefix for secrets. Skillbox is excluded; no additional database is required. Native WebMCP still requires a supporting browser with the feature enabled.
