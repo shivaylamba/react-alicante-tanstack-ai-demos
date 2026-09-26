@@ -165,3 +165,16 @@ This repository contains both slide editions, the live demo server, skills, test
 Vercel builds the React app with Vite and routes `/api/*` to the Hono Node function in `api/index.ts`. Configure `NEBIUS_API_KEY`, `AI_GATEWAY_API_KEY`, `NEBIUS_MODEL`, `DEMO_MODE=live` as server environment variables. Never use a `VITE_` prefix for secrets. Skillbox is excluded; no additional database is required. Native WebMCP still requires a supporting browser with the feature enabled.
 
 Local use remains `npm ci`, configure `.env.local`, then `npm run dev`. Run `npm run skillbox:start` for the separate local Skillbox service. The Vercel deployment does not start Bun or PostgreSQL on your computer.
+
+### Hosted verification — 26 September 2026
+
+Verified against the public Vercel URL with one Chrome worker and live providers:
+
+- Streaming and Stop; structured product cards; tool-based stock lookup and quotes.
+- Deny/approve cart proposals, with state preserved between slides.
+- Jev cleanup through AI Gateway, protected content, and Restore.
+- Native Chrome WebMCP discovery, model-selected execution of both page tools, and unregistering when leaving the demo. This verifies the in-page agent; it is not a claim about a separate external browser assistant.
+- The full-deck Code Mode appendix executes generated code and calculates €11,870/week.
+- All 23 lightning slides, highlighted code, speaker notes, 320/768/1440px layouts, and phone reading-guide navigation.
+
+The 14 targeted browser checks passed (13 initially, then the corrected speaker-note selector passed its targeted rerun). Seven local contract tests passed. Skillbox is excluded and its hosted API is disabled. Live model output and latency can vary; rehearse in the actual presentation browser. Native WebMCP requires Chrome with WebMCP enabled.

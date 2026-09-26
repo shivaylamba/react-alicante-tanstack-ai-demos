@@ -17,7 +17,7 @@ test('short deck follows the paced route, with Jev immediately before WebMCP', a
     await expect(page.locator('main')).not.toContainText(/0:15|1:30|10:40|11:00/);
     await page.keyboard.press('n');
     await expect(page.locator('.speaker-notes')).not.toBeEmpty();
-    await expect(page.locator('.pacing-note')).toContainText(lightningNotes[c.id].window);
+    await expect(page.locator('.pacing-note').filter({hasText: 'Presenter only'})).toContainText(lightningNotes[c.id].window);
     await page.keyboard.press('Escape');
     await expect(page.locator('.speaker-notes')).toHaveCount(0);
     if(c.kind==='meme'){await expect(page.locator('.meme-panel')).toHaveCount(2);await expect(page.locator('.meme-punchline')).not.toBeEmpty();}
