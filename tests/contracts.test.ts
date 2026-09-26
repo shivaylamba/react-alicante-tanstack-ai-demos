@@ -32,3 +32,14 @@ test('API rejects cross origin requests and malformed input',async()=>{
  assert.equal((await app.request('/api/cleanup',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({goal:''})})).status,400);
  assert.equal((await app.request('/api/chat/shopchat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:[]})})).status,400);
 });
+
+test('Vercel accepts its public alias while rejecting unrelated origins', async()=>{
+ const previous=process.env.VERCEL;
+ process.env.VERCEL='1';
+ try {
+  const check=(origin:string)=>app.request('http://internal-function/api/status',{headers:{origin}});
+  assert.equal((await check('https://react-alicante-tanstack-ai-demos.vercel.app')).status,200);
+  assert.equal((await check('https://evil.example')).status,403);
+  assert.equal((await app.request('/api/skillbox')).status,404);
+ } finally { if(previous===undefined) delete process.env.VERCEL; else process.env.VERCEL=previous; }
+});

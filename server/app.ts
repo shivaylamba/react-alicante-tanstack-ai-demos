@@ -44,7 +44,14 @@ app.onError((error, c) =>
 );
 app.use("/api/*", async (c, next) => {
   const origin = c.req.header("origin");
-  if (origin && origin !== new URL(c.req.url).origin)
+  // Vercel's function URL can differ from the public HTTPS alias.
+  const allowedOrigins = new Set([new URL(c.req.url).origin]);
+  if (process.env.VERCEL) {
+    for (const host of [process.env.VERCEL_URL, process.env.VERCEL_PROJECT_PRODUCTION_URL, 'react-alicante-tanstack-ai-demos.vercel.app']) {
+      if (host) allowedOrigins.add(`https://${host}`);
+    }
+  }
+  if (origin && !allowedOrigins.has(origin))
     return c.json({ error: "Cross-origin request rejected" }, 403);
   if (Number(c.req.header("content-length") || 0) > 64000)
     return c.json({ error: "Request too large" }, 413);

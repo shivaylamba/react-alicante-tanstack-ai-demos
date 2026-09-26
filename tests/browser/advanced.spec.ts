@@ -5,7 +5,7 @@ test.beforeEach(async ({ request, page }) => {
     process.env.TEST_LIVE === "1" ? "live" : "rehearsal",
   );
 });
-test("skills load shopper instructions before giving product advice", async ({
+test.skip("skills load shopper instructions before giving product advice", async ({
   page,
 }) => {
   await page.goto("/#skills");

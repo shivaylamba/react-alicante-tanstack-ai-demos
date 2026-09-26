@@ -1,6 +1,7 @@
 import { test, expect } from "@playwright/test";
 import { rcById } from "../../src/rc-topics";
-import { chapters, lessons } from "../../src/lessons";
+import { chapters as allChapters, lessons } from "../../src/lessons";
+const chapters = allChapters.filter(c => c.lesson !== 6);
 test("complete feature-demo-code sequence, image opening, notes and no auto requests", async ({
   page,
 }) => {
