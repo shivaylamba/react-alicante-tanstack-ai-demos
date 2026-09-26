@@ -5,7 +5,7 @@ export const lightningChapters = [
   { id: "toolkit", name: "What is TanStack AI?", kind: "intro" },
   { id: "how-it-works", name: "How React connects to AI", kind: "architecture" },
   { id: "alicante", name: "Today we are building Vamos Alicante", kind: "story" },
-  { id: "demo-roadmap", name: "Seven demos. One beach shop.", kind: "short-roadmap" },
+  { id: "demo-roadmap", name: "Six demos. One beach shop.", kind: "short-roadmap" },
   { id: "shopchat", name: "Streaming shopping assistant", kind: "demo", lesson: 0 },
   { id: "shopchat-code", name: "Streaming · code", kind: "demo-code", lesson: 0 },
   { id: "meme-founder", name: "The conference-to-beach transition", kind: "meme" },
@@ -21,8 +21,6 @@ export const lightningChapters = [
   { id: "jev-code", name: "Jev · code", kind: "demo-code", lesson: 4 },
   { id: "webmcp", name: "WebMCP page actions", kind: "demo", lesson: 5 },
   { id: "webmcp-code", name: "Webmcp · code", kind: "demo-code", lesson: 5 },
-  { id: "skills", name: "Agent skills + Skillbox", kind: "demo", lesson: 6 },
-  { id: "skills-code", name: "Skillbox · code", kind: "demo-code", lesson: 6 },
   { id: "one-pattern", name: "The pattern behind the storefront", kind: "short-code" },
   { id: "more", name: "And there is more", kind: "short-more" },
   { id: "workshop", name: "Build it with Shivay & Vikas", kind: "closing" },
@@ -57,12 +55,12 @@ export const lightningNotes: Record<
   },
   "demo-roadmap": {
     window: "", seconds: 16,
-    script: "We will stream an answer, compare products, check a bundle with tools, approve the cart addition, remove distractions with Jev, and filter the page with WebMCP. Then we finish with Skillbox: reusable instructions for this same shop assistant. The catalog and cart stay consistent throughout.",
-    action: "Follow the roadmap in order. Start with the plain streaming assistant; save Skillbox for the final demo.",
+    script: "We will stream an answer, compare products, check a bundle with tools, approve the cart addition, remove distractions with Jev, and filter the page with WebMCP. The catalog and cart stay consistent throughout.",
+    action: "Follow the roadmap in order. Start with the plain streaming assistant; finish with WebMCP.",
   },
   shopchat: {
     window: "", seconds: 35,
-    script: "I’m the shopper, and I need a towel and something to carry water. Watch the answer appear as it is generated. React receives streamed events through useChat, so I can read before the answer is complete or press Stop. This first demo has catalog context but no tools and no Skillbox. It answers a question; it cannot change my cart. Next let’s turn advice into comparison cards.",
+    script: "I’m the shopper, and I need a towel and something to carry water. Watch the answer appear as it is generated. React receives streamed events through useChat, so I can read before the answer is complete or press Stop. This first demo has catalog context but no tools. It answers a question; it cannot change my cart. Next let’s turn advice into comparison cards.",
     action: "Click Ask the assistant with the beach-essentials preset. Point to the streamed text and Stop control, then open the streaming code slide.",
   },
   skills: {
@@ -100,7 +98,7 @@ export const lightningNotes: Record<
     window: "7:00–8:30",
     seconds: 60,
     script:
-      "An agent could try to click coordinates. Instead, the page publishes named capabilities with schemas: filter this catalog and change this theme. That is WebMCP. Our TanStack client registers and discovers those tools through Chrome’s native browser registry.\n\nI ask for affordable, in-stock items and a lavender shop. The model chooses the tools, the browser executes their handlers, and React updates the visible page. Here are the two actual executions.\n\nThis is our in-page agent using native WebMCP, not a separate browser assistant. It only controls this preview. Our final demo adds reusable instructions to the shop assistant with Skillbox.",
+      "An agent could try to click coordinates. Instead, the page publishes named capabilities with schemas: filter this catalog and change this theme. That is WebMCP. Our TanStack client registers and discovers those tools through Chrome’s native browser registry.\n\nI ask for affordable, in-stock items and a lavender shop. The model chooses the tools, the browser executes their handlers, and React updates the visible page. Here are the two actual executions.\n\nThis is our in-page agent using native WebMCP, not a separate browser assistant. It only controls this preview. Let’s connect the patterns we have just seen.",
     action:
       "Confirm native status shows two discovered tools. Click Ask the page agent. Point at three items, lavender and the execution log. If support is unavailable, say so and explain the named tools; do not claim they executed.",
   },
@@ -116,7 +114,7 @@ export const lightningNotes: Record<
     window: "",
     seconds: 23,
     script:
-      "What we saw is only part of the toolkit. We just saw Skillbox supply reusable instructions. Code Mode lets an agent compose permitted tools into a small program. There are also media APIs, embeddings and reranking, memory, remote MCP, persistence, resumable streams, telemetry and coding-agent harnesses.\n\nThe remaining capabilities are for exploration after this talk. The full companion deck has examples and setup notes. You can explore those after the talk.",
+      "What we saw is only part of the toolkit. Agent skills can supply reusable instructions. Code Mode lets an agent compose permitted tools into a small program. There are also media APIs, embeddings and reranking, memory, remote MCP, persistence, resumable streams, telemetry and coding-agent harnesses.\n\nThe remaining capabilities are for exploration after this talk. The full companion deck has examples and setup notes. You can explore those after the talk.",
     action:
       "Mention the capability groups once. Keep all of them on this one slide. Do not follow the full-deck link during the talk.",
   },
@@ -126,7 +124,7 @@ export const lightningNotes: Record<
     script:
       "If you want to build this instead of just watch it, Vikas and I ran a four-hour hands-on workshop. Scan this code for the attendee repository: starters, solutions and experiments. Thank you, React Alicante!",
     action:
-      "Leave the QR visible. Keep the remaining twenty seconds as buffer. Stop by 11:00.",
+      "Leave the QR visible. Keep the remaining seventy-five seconds as buffer. Stop by 11:00.",
   },
 };
 export const extraCapabilities = [

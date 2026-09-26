@@ -3,7 +3,7 @@ import { existsSync } from 'node:fs';
 import { serve } from '@hono/node-server';
 import { serveStatic } from '@hono/node-server/serve-static';
 import { createServer as createViteServer } from 'vite';
-import { app } from './app';
+import { app } from './app.js';
 if(existsSync('.env'))process.loadEnvFile('.env');
 if(existsSync('.env.local'))process.loadEnvFile('.env.local');
 const port=Number(process.env.PORT||3100);

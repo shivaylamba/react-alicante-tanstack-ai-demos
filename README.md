@@ -1,15 +1,17 @@
+> **Hosted edition:** six demos, 23 lightning slides, and matching speaker notes. Skillbox is excluded from both presentation routes and disabled on Vercel. The local Skillbox instructions below are an optional source-code appendix.
+
 # Building AI-Powered React Apps with TanStack AI
 
 A React presentation with two editions sharing the same demo implementations and server.
 
-- **Lightning talk:** http://localhost:3100/lightning.html#welcome — 25 slides with a 10:40 content budget plus 20 seconds of buffer. Introduction → request path → Vamos Alicante → demo roadmap → streaming → product comparisons → tools and approval → Jev → WebMCP → Skillbox → compact code → other capabilities → workshop QR. The original streaming demo opens the demo sequence; Skillbox is the final demo after WebMCP. Code Mode and the broader RC topics share one summary slide. Press N for the timed script, also in `LIGHTNING-RUN-OF-SHOW.md`.
-- **Full deck:** http://localhost:3100/#welcome — all 41 slides, eight demos and detailed code walkthroughs are preserved. See `RUN-OF-SHOW.md`.
+- **Lightning talk:** http://localhost:3100/lightning.html#welcome — 23 slides with a 9:45 content budget plus 75 seconds of buffer. Introduction → request path → Vamos Alicante → demo roadmap → streaming → product comparisons → tools and approval → Jev → WebMCP → compact code → other capabilities → workshop QR. The original streaming demo opens the demo sequence; WebMCP is the final live demo. Code Mode and the broader RC topics share one summary slide. Press N for the timed script, also in `LIGHTNING-RUN-OF-SHOW.md`.
+- **Full deck:** http://localhost:3100/#welcome — 38 slides, seven demos and detailed code walkthroughs are preserved. See `RUN-OF-SHOW.md`.
 
 Both pages keep timestamps out of the projected slides. The short edition links to full code in another tab for optional questions. Regenerate its rehearsal script with `npx tsx scripts/build-lightning-guide.ts`.
 
 ## Demo project: Vamos Alicante
 
-A fictional beach-essentials shop for React Alicante attendees after the talks. Browse a towel (€12), water bottle (€6), conference sticker (€3), pocket fan (€8) and an unavailable parasol (€29). Prices and stock are demo fixtures, not real local offers. No bookings or purchases occur. Seven short-deck demos connect the same shop to Skillbox skills, streaming, structured output, a budget-checked tool loop, approval, Jev cleanup and WebMCP page actions.
+A fictional beach-essentials shop for React Alicante attendees after the talks. Browse a towel (€12), water bottle (€6), conference sticker (€3), pocket fan (€8) and an unavailable parasol (€29). Prices and stock are demo fixtures, not real local offers. No bookings or purchases occur. Six short-deck demos connect the same shop to streaming, structured output, a budget-checked tool loop, approval, Jev cleanup and WebMCP page actions.
 
 ## Run
 
@@ -35,7 +37,6 @@ The slide picker contains 41 slides. Start with the title, TanStack AI introduct
 | Human approval | `#approval` | Towel + bottle enter the shared demo cart only after approval |
 | Typed decisions | `#jev` | Jev classifies known elements; reversible clutter removal |
 | WebMCP | `#webmcp` | Native page tools filter the shop and change its theme |
-| Agent skills + Skillbox | `#skills` | `load_skill` fetches a pinned playbook from Kitze’s real Skillbox service |
 | Code Mode | `#codemode` | Model-written TypeScript calculates fictional meeting costs |
 
 Recap slides connect the features. The final `#workshop` QR points to the four-hour attendee workshop with Shivay and Vikas.
@@ -108,7 +109,7 @@ Keep the live server running on 3100 for live checks. Tests run one browser work
 - [Kitze’s Unclutter](https://github.com/kitze/unclutter), inspiration for the Jev cleanup demo.
 - [Rudraksh Karpe’s OpenVoice presentation](https://rudrakshkarpe.com/presentations/openvoice), interaction reference.
 
-Each of the seven demos is followed by a focused syntax-highlighted code slide with two explained blocks. The demo’s Explain the code button opens that local slide. Full source walkthroughs remain linked in the companion deck.
+Each of the six demos is followed by a focused syntax-highlighted code slide with two explained blocks. The demo’s Explain the code button opens that local slide. Full source walkthroughs remain linked in the companion deck.
 
 Three original visual meme slides punctuate the short deck. Each has a four-second speaker beat, and the capability summary is shorter to retain the planned 10:40 content budget. The shopping assistant offers product and budget presets; switching one edits the prompt without making a model request. UI punchlines appear after validated product data, a real quote, pending approval, or visible page changes. Laughs and live model jokes are not guaranteed; the speaker notes include delivery cues and a fallback line.
 
@@ -130,11 +131,11 @@ The setup pins upstream commit `cda64ad3310abe690c6d497352791da4cfeb9a0a`, clone
 
 Setup imports `skills/beach-shopper/SKILL.md` and `skills/returns-guide/SKILL.md` once, then creates a read-only client limited to those skills. It preserves later edits. Server-only `SKILLBOX_URL` and `SKILLBOX_CLIENT_KEY` are written to protected `.env.local`. Owner credentials live in ignored `.skillbox/credentials.json`; open it privately if you want to sign into the Skillbox editor. Do not project it. Never put either key in a slide or browser configuration.
 
-Demo: open `/lightning.html#skills`, click **Ask the shop assistant**. Inspect `beach-shopper`, its revision receipt and the €18 towel-and-bottle recommendation. Then select **Can I return it?** and submit again: inspect `returns-guide` and the fictional store policy. The same model loads different guidance. **Explain the code** shows highlighted integration excerpts. Press **N** for the Kitze shoutout and recitable script.
+Optional integration source: `src/advanced-demos.tsx` and `server/skillbox.ts`. The Skillbox slide is excluded from this edition. In a custom deck that enables it, open `#skills`, click **Ask the shop assistant**. Inspect `beach-shopper`, its revision receipt and the €18 towel-and-bottle recommendation. Then select **Can I return it?** and submit again: inspect `returns-guide` and the fictional store policy. The same model loads different guidance. **Explain the code** shows highlighted integration excerpts. Press **N** for the Kitze shoutout and recitable script.
 
 Live mode fails visibly if Skillbox is unavailable. Rehearsal explicitly uses inline fixtures; that does not verify Skillbox. The client has no skill-write, archive or proposal permissions. A run pins its catalog revisions before loading a body, so an owner edit cannot silently change the version midway through that run. A later run sees the new revision.
 
-The short edition still budgets 10:40 content plus 20 seconds buffer. Run both shopper questions only if the first finishes promptly. Provider latency makes a timed rehearsal essential.
+The short edition still budgets 9:45 content plus 75 seconds buffer. Run both shopper questions only if the first finishes promptly. Provider latency makes a timed rehearsal essential.
 
 ## The shopper story
 
@@ -146,7 +147,7 @@ The short edition still budgets 10:40 content plus 20 seconds buffer. Run both s
 4. **Approve** — the `add_to_cart` proposal lists exact items. Denial leaves the cart unchanged. Approval updates shared React state.
 5. **Focus** — Jev hides distracting promotions while protecting useful product content.
 6. **Filter** — native WebMCP changes the visible catalog. It does not add items or bypass approval.
-7. **Load a playbook** — finish with Skillbox supplying reusable product-advice and returns instructions.
+Skillbox is excluded from the presentation and hosted deployment. The optional local integration source remains available for exploration.
 
 The catalog is fictional. The demo cart supports one of each product with a €25 total limit. It survives slide navigation, offers explicit remove/empty controls, and resets on refresh. It never places an order, charges money or reserves stock. A production backend would revalidate stock/prices and authorize mutations. Reset demo clears that conversation; use **Empty demo cart** to clear the shared cart.
 
@@ -156,6 +157,6 @@ The earlier roast, landing-page generator, launch-copy skill and confetti approv
 
 This repository contains both slide editions, the live demo server, skills, tests and the speaker guide. The hosted reading guide is also available at `/speaker-notes/`.
 
-Vercel builds the React app with Vite and routes `/api/*` to the Hono Node function in `api/index.ts`. Configure `NEBIUS_API_KEY`, `AI_GATEWAY_API_KEY`, `NEBIUS_MODEL`, `DEMO_MODE=live`, `SKILLBOX_URL` and `SKILLBOX_CLIENT_KEY` as server environment variables. Never use a `VITE_` prefix for secrets. Skillbox must be reachable over HTTPS; the local loopback service cannot serve a hosted deployment. Native WebMCP still requires a supporting browser with the feature enabled.
+Vercel builds the React app with Vite and routes `/api/*` to the Hono Node function in `api/index.ts`. Configure `NEBIUS_API_KEY`, `AI_GATEWAY_API_KEY`, `NEBIUS_MODEL`, `DEMO_MODE=live` as server environment variables. Never use a `VITE_` prefix for secrets. Skillbox is excluded; no additional database is required. Native WebMCP still requires a supporting browser with the feature enabled.
 
 Local use remains `npm ci`, configure `.env.local`, then `npm run dev`. Run `npm run skillbox:start` for the separate local Skillbox service. The Vercel deployment does not start Bun or PostgreSQL on your computer.

@@ -21,7 +21,7 @@ import "./deck.css";
 import "./presentation.css";
 
 const isLightning = location.pathname === "/lightning.html";
-const chapters = isLightning ? lightningChapters : fullChapters;
+const chapters = isLightning ? lightningChapters : fullChapters.filter(chapter => chapter.lesson !== 6);
 
 function hashIndex() {
   const i = chapters.findIndex((c) => c.id === location.hash.slice(1));
@@ -476,7 +476,7 @@ function Deck() {
         {chapter.kind === "short-roadmap" && (
           <section className="story-slide lightning-more">
             <p className="eyebrow">WHAT WE WILL SHOW</p>
-            <h1>Seven demos. <em>One beach shop.</em></h1>
+            <h1>Six demos. <em>One beach shop.</em></h1>
             <div className="rc-map">
               {[
                 ["Ask the shop assistant", "Streaming → read the answer as it arrives"],
@@ -485,7 +485,6 @@ function Deck() {
                 ["Add to cart", "Human approval → the bag changes only after your click"],
                 ["Clean up the clutter", "Jev decisions → a focused, reversible interface"],
                 ["Operate the shop", "WebMCP → discover and execute page capabilities"],
-                ["Add shop playbooks", "Skillbox → reusable product and returns instructions"],
               ].map(([title, description], index) => (
                 <div className="capability-row" key={title}>
                   <span>{String(index + 1).padStart(2, "0")}</span>
@@ -615,10 +614,10 @@ function Deck() {
             <h1>
               {chapter.id === "recap"
                 ? "What have we covered?"
-                : "Eight capabilities. One React app."}
+                : "Seven capabilities. One React app."}
             </h1>
             <div className="recap-grid">
-              {lessons.slice(0, chapter.id === "recap" ? 5 : 8).map((l, i) => (
+              {lessons.slice(0, chapter.id === "recap" ? 5 : 8).filter(l => l.id !== "skills").map((l, i) => (
                 <a href={"#" + l.id + "-feature"} key={l.id}>
                   <span>0{i + 1}</span>
                   <div>
@@ -771,7 +770,7 @@ function Deck() {
                   If a live call takes more than 10 seconds, explain the
                   intended contract while it runs. At the end of the segment,
                   stop and move on; never claim an unfinished result. Keep the
-                  final 20 seconds as buffer.
+                  remaining time as buffer.
                 </p>
               </div>
             )}
@@ -826,8 +825,8 @@ function Deck() {
             </p>
             <p>
               {isLightning
-                ? "Seven demos in React, including Skillbox by Kitze. "
-                : "Eight interactive examples in React. "}
+                ? "Six live demos in React. "
+                : "Seven interactive examples in React. "}
               Model requests happen only when you press a demo button. Rehearsal
               is explicitly labelled and never proves live inference.
             </p>
@@ -837,7 +836,6 @@ function Deck() {
                   TanStack AI RC announcement
                 </a>
               </li>
-              <li><a href="https://github.com/kitze/skillbox" target="_blank" rel="noreferrer">Skillbox by Kitze — versioned agent playbooks</a></li>
               {rcTopics
                 .flatMap((t) => t.sources)
                 .filter(

@@ -419,7 +419,7 @@ export const chapters = [
       ? [{ id: "recap", name: "What have we covered?", kind: "recap" }]
       : []),
   ]),
-  { id: "takeaways", name: "Eight capabilities, one React app", kind: "recap" },
+  { id: "takeaways", name: "Seven capabilities, one React app", kind: "recap" },
   ...rcTopics.slice(2).map((t) => ({ id: t.id, name: t.name, kind: "rc" })),
   { id: "workshop", name: "Build it yourself", kind: "closing" },
 ] as { id: string; name: string; kind: string; lesson?: number }[];

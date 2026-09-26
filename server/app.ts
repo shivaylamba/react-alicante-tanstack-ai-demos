@@ -1,6 +1,6 @@
-import { createSkillboxSource } from "./skillbox";
+import { createSkillboxSource } from "./skillbox.js";
 import { withSkills } from "@tanstack/ai-skills";
-import { demoSkills, createMeetingCodeMode } from "./advanced";
+import { demoSkills, createMeetingCodeMode } from "./advanced.js";
 import { Hono } from "hono";
 import {
   chat,
@@ -24,9 +24,9 @@ import {
   cleanupInput,
   decisionSchema,
   mayHide,
-} from "../src/contracts";
-import { adapter, rehearsal } from "./provider";
-import { fixtureResponse } from "./fixture";
+} from "../src/contracts.js";
+import { adapter, rehearsal } from "./provider.js";
+import { fixtureResponse } from "./fixture.js";
 export const app = new Hono();
 app.onError((error, c) =>
   c.json(
@@ -59,6 +59,7 @@ app.get("/api/status", (c) =>
   }),
 );
 app.get("/api/skillbox", async (c) => {
+  if (process.env.VERCEL) return c.json({ error: "Skillbox is not included in this deployment" }, 404);
   if (rehearsal()) return c.json({ mode: "rehearsal", skills: await Promise.all(demoSkills.map(async source => (await source.list())[0])) });
   try {
     return c.json({ mode: "live", skills: await createSkillboxSource(c.req.raw.signal).list() });
@@ -89,6 +90,7 @@ const prompts: Record<string, string> = {
 };
 app.post("/api/chat/:act", async (c) => {
   const act = c.req.param("act");
+  if (process.env.VERCEL && act === "skills") return c.json({ error: "Skillbox is not included in this deployment" }, 404);
   if (!prompts[act]) return c.json({ error: "Unknown demo" }, 404);
   const raw = await c.req.text();
   if (raw.length > 64000)

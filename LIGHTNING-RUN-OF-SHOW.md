@@ -2,7 +2,7 @@
 
 Open http://localhost:3100/lightning.html#welcome. The full deck remains at http://localhost:3100/#welcome. Press N for the same script on each slide; Escape closes it. Timings are presenter-only.
 
-The plan allocates 10:40 to content and 0:20 to buffer. This is a rehearsal budget, not a guarantee of live provider latency. Run each demo once. If a request takes more than ten seconds, explain its contract while waiting. At the segment deadline, stop and advance; never claim an unfinished action succeeded. Keep the deeper code walkthroughs and extra demos for questions.
+The plan allocates 9:45 to content and 1:15 to buffer. This is a rehearsal budget, not a guarantee of live provider latency. Run each demo once. If a request takes more than ten seconds, explain its contract while waiting. At the segment deadline, stop and advance; never claim an unfinished action succeeded. Keep the deeper code walkthroughs and extra demos for questions.
 
 | Window | Slide |
 | --- | --- |
@@ -10,7 +10,7 @@ The plan allocates 10:40 to content and 0:20 to buffer. This is a rehearsal budg
 | 0:15–0:45 | What is TanStack AI? |
 | 0:45–1:10 | How React connects to AI |
 | 1:10–1:35 | Today we are building Vamos Alicante |
-| 1:35–1:51 | Seven demos. One beach shop. |
+| 1:35–1:51 | Six demos. One beach shop. |
 | 1:51–2:26 | Streaming shopping assistant |
 | 2:26–2:46 | Streaming · code |
 | 2:46–2:50 | The conference-to-beach transition |
@@ -26,11 +26,9 @@ The plan allocates 10:40 to content and 0:20 to buffer. This is a rehearsal budg
 | 7:02–7:22 | Jev · code |
 | 7:22–8:22 | WebMCP page actions |
 | 8:22–8:42 | Webmcp · code |
-| 8:42–9:17 | Agent skills + Skillbox |
-| 9:17–9:37 | Skillbox · code |
-| 9:37–9:52 | The pattern behind the storefront |
-| 9:52–10:15 | And there is more |
-| 10:15–10:40 | Build it with Shivay & Vikas |
+| 8:42–8:57 | The pattern behind the storefront |
+| 8:57–9:20 | And there is more |
+| 9:20–9:45 | Build it with Shivay & Vikas |
 
 ## 1. Building AI-Powered React Apps
 
@@ -72,15 +70,15 @@ http://localhost:3100/lightning.html#alicante
 
 **Stage action:** Point at the catalog: towel €12, bottle €6, and the out-of-stock parasol. Establish the shopper’s €25 goal.
 
-## 5. Seven demos. One beach shop.
+## 5. Six demos. One beach shop.
 
 1:35–1:51 · 16 seconds
 
 http://localhost:3100/lightning.html#demo-roadmap
 
-> We will stream an answer, compare products, check a bundle with tools, approve the cart addition, remove distractions with Jev, and filter the page with WebMCP. Then we finish with Skillbox: reusable instructions for this same shop assistant. The catalog and cart stay consistent throughout.
+> We will stream an answer, compare products, check a bundle with tools, approve the cart addition, remove distractions with Jev, and filter the page with WebMCP. The catalog and cart stay consistent throughout.
 
-**Stage action:** Follow the roadmap in order. Start with the plain streaming assistant; save Skillbox for the final demo.
+**Stage action:** Follow the roadmap in order. Start with the plain streaming assistant; finish with WebMCP.
 
 ## 6. Streaming shopping assistant
 
@@ -88,7 +86,7 @@ http://localhost:3100/lightning.html#demo-roadmap
 
 http://localhost:3100/lightning.html#shopchat
 
-> I’m the shopper, and I need a towel and something to carry water. Watch the answer appear as it is generated. React receives streamed events through useChat, so I can read before the answer is complete or press Stop. This first demo has catalog context but no tools and no Skillbox. It answers a question; it cannot change my cart. Next let’s turn advice into comparison cards.
+> I’m the shopper, and I need a towel and something to carry water. Watch the answer appear as it is generated. React receives streamed events through useChat, so I can read before the answer is complete or press Stop. This first demo has catalog context but no tools. It answers a question; it cannot change my cart. Next let’s turn advice into comparison cards.
 
 **Stage action:** Click Ask the assistant with the beach-essentials preset. Point to the streamed text and Stop control, then open the streaming code slide.
 
@@ -413,7 +411,7 @@ http://localhost:3100/lightning.html#webmcp
 
 > I ask for affordable, in-stock items and a lavender shop. The model chooses the tools, the browser executes their handlers, and React updates the visible page. Here are the two actual executions.
 
-> This is our in-page agent using native WebMCP, not a separate browser assistant. It only controls this preview. Our final demo adds reusable instructions to the shop assistant with Skillbox.
+> This is our in-page agent using native WebMCP, not a separate browser assistant. It only controls this preview. Let’s connect the patterns we have just seen.
 
 **Stage action:** Confirm native status shows two discovered tools. Click Ask the page agent. Point at three items, lavender and the execution log. If support is unavailable, say so and explain the named tools; do not claim they executed. After the actual tools succeed: ‘The budget is strict. The brand guidelines are lavender.’ Do not deliver the success joke before the page changes.
 
@@ -465,71 +463,9 @@ const chat = useChat({
 
 Register → discover through native WebMCP → provide tools to useChat.
 
-## 21. Agent skills + Skillbox
+## 21. The pattern behind the storefront
 
-8:42–9:17 · 35 seconds
-
-http://localhost:3100/lightning.html#skills
-
-> One final upgrade: reusable shop instructions. Can I return a towel after using it? The assistant loads returns-guide from Skillbox, Kitze’s versioned skill library, and explains our fictional policy: unused, original packaging, thirty days. The receipt shows the loaded revision. Skillbox stores the playbook; TanStack AI loads it through load_skill. Instructions guide an answer; they do not authorize refunds or cart changes. Another shoutout to Kitze for Skillbox.
-
-**Stage action:** Click Can I return it?, then Ask the shop assistant. Show returns-guide and its revision receipt. Keep the product-advice preset for questions. Advance to the Skillbox code slide, then the recap.
-
-## 22. Skillbox · code
-
-9:17–9:37 · 20 seconds
-
-http://localhost:3100/lightning.html#skills-code
-
-> On the left, our custom SkillSource connects the Skillbox HTTP library to TanStack. list returns short descriptions; load returns the chosen version. On the right, withSkills gives the model the catalog and load_skill. The browser never receives the client key. This is a separate open-source project by Kitze, integrated with a small adapter.
-
-**Stage action:** Explain the left block, then the right block. Point at the takeaway. Advance after this focused explanation; the longer source walkthrough remains in the full deck.
-
-### Adapt the library to TanStack
-
-Source: server/skillbox.ts
-
-```tsx
-// Focused excerpt: a custom SkillSource, not a built-in Skillbox adapter.
-return {
-  list: async () => (await list()).map(item => ({
-    name: item.id, description: item.description,
-    metadata: { source: 'Skillbox', revision: item.revision },
-  })),
-  load: async (name) => {
-    const selected = (await list()).find(item => item.id === name);
-    if (!selected) throw new Error('Skill not in the authorized catalog');
-    const path = '/api/skills/' + encodeURIComponent(name)
-      + '?revision=' + encodeURIComponent(selected.revision);
-    const loaded = loadedSchema.parse(await read(path));
-    if (loaded.revision !== selected.revision) throw new Error('Revision mismatch');
-    return loaded.instructions;
-  },
-};
-```
-
-Our SkillSource reads authorized descriptions, then the selected pinned revision.
-
-### Let the model select, then inspect the receipt
-
-Source: server/app.ts
-
-```tsx
-const source = createSkillboxSource(controller.signal);
-const stream = chat({
-  ...options,
-  middleware: [withSkills([source])],
-  tools,
-  agentLoopStrategy: maxIterations(4),
-});
-// React renders load_skill input/output and the Skillbox revision.
-```
-
-withSkills supplies load_skill; React shows the result and streams the answer.
-
-## 23. The pattern behind the storefront
-
-9:37–9:52 · 15 seconds
+8:42–8:57 · 15 seconds
 
 http://localhost:3100/lightning.html#one-pattern
 
@@ -537,33 +473,32 @@ http://localhost:3100/lightning.html#one-pattern
 
 **Stage action:** Read the two short blocks from server to React. Recap the three boundaries in the footer; the individual code slides have already explained the APIs.
 
-## 24. And there is more
+## 22. And there is more
 
-9:52–10:15 · 23 seconds
+8:57–9:20 · 23 seconds
 
 http://localhost:3100/lightning.html#more
 
-> What we saw is only part of the toolkit. We just saw Skillbox supply reusable instructions. Code Mode lets an agent compose permitted tools into a small program. There are also media APIs, embeddings and reranking, memory, remote MCP, persistence, resumable streams, telemetry and coding-agent harnesses.
+> What we saw is only part of the toolkit. Agent skills can supply reusable instructions. Code Mode lets an agent compose permitted tools into a small program. There are also media APIs, embeddings and reranking, memory, remote MCP, persistence, resumable streams, telemetry and coding-agent harnesses.
 
 > The remaining capabilities are for exploration after this talk. The full companion deck has examples and setup notes. You can explore those after the talk.
 
 **Stage action:** Mention the capability groups once. Keep all of them on this one slide. Do not follow the full-deck link during the talk.
 
-## 25. Build it with Shivay & Vikas
+## 23. Build it with Shivay & Vikas
 
-10:15–10:40 · 25 seconds
+9:20–9:45 · 25 seconds
 
 http://localhost:3100/lightning.html#workshop
 
 > If you want to build this instead of just watch it, Vikas and I ran a four-hour hands-on workshop. Scan this code for the attendee repository: starters, solutions and experiments. Thank you, React Alicante!
 
-**Stage action:** Leave the QR visible. Keep the remaining twenty seconds as buffer. Stop by 11:00.
+**Stage action:** Leave the QR visible. Keep the remaining seventy-five seconds as buffer. Stop by 11:00.
 
 ## Comedy delivery cues
 
 Keep the feature explanation straight. Let the absurd business idea carry the joke. Do not promise the audience that the next line will be funny, and do not explain a punchline after delivering it.
 
-- **Skills + streaming:** product advice loads beach-shopper; a return question loads returns-guide. Only say a playbook loaded after its receipt appears. Keep the shopper’s €25 need central.
 - **Structured output:** show comparison cards. “No imaginary discount. Those prices came from the catalog.”
 - **Agent:** show the €18 quote. “Seven euros left. The model is better at sticking to my budget than I am.”
 - **Approval:** pause on the unchanged bag. “It can recommend the towel. It cannot spend my beach budget.” Approve, then show the actual cart.

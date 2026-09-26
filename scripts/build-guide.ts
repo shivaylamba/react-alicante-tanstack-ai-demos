@@ -3,7 +3,7 @@ import { chapters, lessons, introScripts } from "../src/lessons";
 import { rcById } from "../src/rc-topics";
 let result =
   "# Presenter guide — Building AI-Powered React Apps with TanStack AI\n\nOpen http://localhost:3100/#welcome. Use the slide counter to jump, arrow keys to advance, and N to open the script. The supplied React Alicante image is the opening. Every feature has a demo and a three-part code walkthrough. No timings are projected. The RC capability tour adds documentation-based examples, with prerequisites and source links. Use the jump links to keep that deeper tour optional during a short talk.\n\nKeep one server running. Check the LIVE MODE badge. Rehearsal is a scripted fallback, not evidence of live inference.\n\n";
-for (const [i, c] of chapters.entries()) {
+for (const [i, c] of chapters.filter(c => c.lesson !== 6).entries()) {
   result += `## ${String(i + 1).padStart(2, "0")} — ${c.name}\n\nhttp://localhost:3100/#${c.id}\n\n`;
   const l = c.lesson === undefined ? undefined : lessons[c.lesson];
   const rc = rcById[c.id];

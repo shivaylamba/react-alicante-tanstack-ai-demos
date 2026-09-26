@@ -5,9 +5,9 @@ test('short deck follows the paced route, with Jev immediately before WebMCP', a
   page.on('request',r=>{if(r.method()==='POST'&&r.url().includes('/api/'))modelRequests++;});
   await page.goto('/lightning.html#welcome');
   await expect(page.getByAltText(/React Alicante — Building/)).toBeVisible();
-  expect(Object.values(lightningNotes).reduce((total,n)=>total+n.seconds,0)).toBe(640);
+  expect(Object.values(lightningNotes).reduce((total,n)=>total+n.seconds,0)).toBe(585);
   const demos=lightningChapters.filter(c=>c.kind==='demo');
-  expect(demos.map(c=>c.id)).toEqual(['shopchat','product','agent','approval','jev','webmcp','skills']);
+  expect(demos.map(c=>c.id)).toEqual(['shopchat','product','agent','approval','jev','webmcp']);
   expect(demos[demos.findIndex(c=>c.id==='jev')+1].id).toBe('webmcp');
   for(const d of demos)expect(lightningChapters[lightningChapters.indexOf(d)+1].id).toBe(d.id+'-code');
   expect(lightningChapters.slice(0,5).map(c=>c.id)).toEqual(['welcome','toolkit','how-it-works','alicante','demo-roadmap']);
@@ -23,14 +23,14 @@ test('short deck follows the paced route, with Jev immediately before WebMCP', a
     if(c.kind==='meme'){await expect(page.locator('.meme-panel')).toHaveCount(2);await expect(page.locator('.meme-punchline')).not.toBeEmpty();}
     if(c.kind==='demo-code'){await expect(page.locator('.demo-code-slide .syntax')).toHaveCount(2);await expect(page.locator('.demo-code-slide .syntax .token').first()).toBeVisible();}
     if(c.id==='one-pattern')await expect(page.locator('.syntax .token').first()).toBeVisible();
-    if(c.id==='demo-roadmap')await expect(page.locator('.capability-row')).toHaveCount(7);
+    if(c.id==='demo-roadmap')await expect(page.locator('.capability-row')).toHaveCount(6);
     if(c.id==='more')await expect(page.locator('.capability-row')).toHaveCount(8);
     if(i<lightningChapters.length-1)await page.getByRole('button',{name:'Next reveal or slide'}).click();
   }
   await expect(page.getByAltText(/QR code/)).toBeVisible();
   expect(modelRequests).toBe(0);
   await page.goto('/#welcome');
-  await expect(page.getByRole('button',{name:'Choose slide'})).toHaveText(/01\s*\/\s*41/);
+  await expect(page.getByRole('button',{name:'Choose slide'})).toHaveText(/01\s*\/\s*38/);
 });
 test('short page WebMCP executes then unregisters when moving to the code summary',async({page})=>{
   test.skip(process.env.TEST_NATIVE!=='1','Requires native Chrome WebMCP');
@@ -45,7 +45,7 @@ test('short page WebMCP executes then unregisters when moving to the code summar
   await expect(page).toHaveURL(/lightning.html#webmcp-code$/);
   await expect(page.locator('.demo-code-slide .syntax')).toHaveCount(2);
   await page.getByRole('button',{name:'Next reveal or slide'}).click();
-  await expect(page).toHaveURL(/lightning.html#skills$/);
+  await expect(page).toHaveURL(/lightning.html#one-pattern$/);
   await expect.poll(async()=>page.evaluate(async()=>{
     const mc=(document as any).modelContext;
     return (await mc.getTools()).filter((t:any)=>t.name.startsWith('alicante_')).length;

@@ -556,94 +556,7 @@ chat({ ...options, tools, agentLoopStrategy: maxIterations(4) });
 
 Use the next-block control. The full running source can be expanded below the excerpt.
 
-## 27 — Skills + Skillbox
-
-http://localhost:3100/#skills-feature
-
-> Kitze built Skillbox, a versioned library of agent playbooks. Our shopper asks for a towel and hydration within €25. The model loads beach-shopper and responds using the supplied catalog. Then the shopper asks whether a used towel can be returned. It loads returns-guide and explains our fictional 30-day, unused-condition policy. Skillbox stores those instructions; TanStack withSkills exposes the catalog and load_skill. Watch the real revision receipt. No skill executes code or grants permission, and this uses Skillbox HTTP rather than its optional MCP or Jev recommendation paths.
-
-Advance to the demo.
-
-## 28 — Skills + Skillbox · demo
-
-http://localhost:3100/#skills
-
-Run the default task. Watch for: **Skillbox stores the knowledge. TanStack AI orchestrates. Your app still controls execution.**
-
-Expand the loaded instructions. Confirm beach-shopper was loaded. Ask about returning a used towel and inspect returns-guide.
-
-Then use Explain the code.
-
-## 29 — Skills + Skillbox · code
-
-http://localhost:3100/#skills-code
-
-### Block 1: Store a playbook in Skillbox
-
-Source: skills/beach-shopper/SKILL.md
-
-```tsx
----
-name: beach-shopper
-description: Help choose beach essentials within a budget.
----
-Use only the supplied catalog for products, prices and stock.
-Give the products, total and remaining budget.
-For towel and hydration: one towel and one bottle, no extras.
-Ask one follow-up question. Do not change the cart.
-```
-
-> The setup script imports this Markdown into the real Skillbox service. The live demo reads it from Skillbox using a read-only client restricted to our two playbooks. Editing a skill there creates a new revision; setup does not overwrite your edits.
-
-Use the next-block control. The full running source can be expanded below the excerpt.
-
-### Block 2: Adapt the library to TanStack
-
-Source: server/skillbox.ts
-
-```tsx
-// Focused excerpt: a custom SkillSource, not a built-in Skillbox adapter.
-return {
-  list: async () => (await list()).map(item => ({
-    name: item.id, description: item.description,
-    metadata: { source: 'Skillbox', revision: item.revision },
-  })),
-  load: async (name) => {
-    const selected = (await list()).find(item => item.id === name);
-    if (!selected) throw new Error('Skill not in the authorized catalog');
-    const path = '/api/skills/' + encodeURIComponent(name)
-      + '?revision=' + encodeURIComponent(selected.revision);
-    const loaded = loadedSchema.parse(await read(path));
-    if (loaded.revision !== selected.revision) throw new Error('Revision mismatch');
-    return loaded.instructions;
-  },
-};
-```
-
-> list fetches descriptions once per run. load fetches only the chosen body at that run’s pinned revision. The client key stays on our server. A missing service fails visibly; live mode never quietly substitutes an inline skill.
-
-Use the next-block control. The full running source can be expanded below the excerpt.
-
-### Block 3: Let the model select, then inspect the receipt
-
-Source: server/app.ts
-
-```tsx
-const source = createSkillboxSource(controller.signal);
-const stream = chat({
-  ...options,
-  middleware: [withSkills([source])],
-  tools,
-  agentLoopStrategy: maxIterations(4),
-});
-// React renders load_skill input/output and the Skillbox revision.
-```
-
-> withSkills exposes the catalog and load_skill tool. The actual tool output proves which instructions arrived; the streamed text shows how the model applied them. Loading a skill does not execute scripts or grant permissions. Kitze’s Skillbox remains a separate project.
-
-Use the next-block control. The full running source can be expanded below the excerpt.
-
-## 30 — Code Mode
+## 27 — Code Mode
 
 http://localhost:3100/#codemode-feature
 
@@ -651,7 +564,7 @@ http://localhost:3100/#codemode-feature
 
 Advance to the demo.
 
-## 31 — Code Mode · demo
+## 28 — Code Mode · demo
 
 http://localhost:3100/#codemode
 
@@ -661,7 +574,7 @@ Point at the actual generated program. Look for the three data reads and arithme
 
 Then use Explain the code.
 
-## 32 — Code Mode · code
+## 29 — Code Mode · code
 
 http://localhost:3100/#codemode-code
 
@@ -718,13 +631,13 @@ const parsed = costResult.safeParse(execution?.output);
 
 Use the next-block control. The full running source can be expanded below the excerpt.
 
-## 33 — Eight capabilities, one React app
+## 30 — Seven capabilities, one React app
 
 http://localhost:3100/#takeaways
 
 > These are eight different building blocks, not eight variations of a chat box. Streaming improves feedback. Structured output gives React predictable fields. Tools connect facts and actions. Approval preserves control. Typed decisions classify. WebMCP publishes page actions. Skills teach procedures. Code Mode composes tools into a program. The model contributes intelligence; our application owns the boundaries.
 
-## 34 — Media generation
+## 31 — Media generation
 
 http://localhost:3100/#rc-media
 
@@ -777,7 +690,7 @@ These are documentation examples, not additional live demos.
 
 [Image generation](https://tanstack.com/ai/latest/docs/media/image-generation) · [Generation hooks](https://tanstack.com/ai/latest/docs/media/generation-hooks)
 
-## 35 — Embeddings, reranking & RAG
+## 32 — Embeddings, reranking & RAG
 
 http://localhost:3100/#rc-rag
 
@@ -822,7 +735,7 @@ These are documentation examples, not additional live demos.
 
 [Embeddings](https://tanstack.com/ai/latest/docs/embeddings) · [Reranking](https://tanstack.com/ai/latest/docs/rerank/rerank)
 
-## 36 — Agent memory
+## 33 — Agent memory
 
 http://localhost:3100/#rc-memory
 
@@ -854,7 +767,7 @@ These are documentation examples, not additional live demos.
 
 [Memory quickstart](https://tanstack.com/ai/latest/docs/memory/quickstart)
 
-## 37 — Remote MCP & generated types
+## 34 — Remote MCP & generated types
 
 http://localhost:3100/#rc-mcp
 
@@ -899,7 +812,7 @@ These are documentation examples, not additional live demos.
 
 [Managed MCP](https://tanstack.com/ai/latest/docs/tools/mcp-managed) · [MCP type generation](https://tanstack.com/ai/latest/docs/tools/mcp-codegen)
 
-## 38 — Persistence & stream durability
+## 35 — Persistence & stream durability
 
 http://localhost:3100/#rc-persistence
 
@@ -961,7 +874,7 @@ These are documentation examples, not additional live demos.
 
 [Chat persistence](https://tanstack.com/ai/latest/docs/persistence/chat-persistence) · [Resumable streams](https://tanstack.com/ai/latest/docs/resumable-streams/overview)
 
-## 39 — Composable middleware & telemetry
+## 36 — Composable middleware & telemetry
 
 http://localhost:3100/#rc-telemetry
 
@@ -991,7 +904,7 @@ These are documentation examples, not additional live demos.
 
 [OpenTelemetry](https://tanstack.com/ai/latest/docs/advanced/otel)
 
-## 40 — Coding-agent harnesses
+## 37 — Coding-agent harnesses
 
 http://localhost:3100/#rc-harness
 
@@ -1020,7 +933,7 @@ These are documentation examples, not additional live demos.
 
 [Harnesses](https://tanstack.com/ai/latest/docs/sandbox/harnesses) · [Sandbox quick start](https://tanstack.com/ai/latest/docs/sandbox/quick-start)
 
-## 41 — Build it yourself
+## 38 — Build it yourself
 
 http://localhost:3100/#workshop
 
